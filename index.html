@@ -51,9 +51,13 @@
       box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:.28s ease;
     }
     .card:hover{transform:translateY(-7px);border-color:rgba(83,215,229,.6);box-shadow:0 28px 70px rgba(0,0,0,.48),0 0 0 1px rgba(83,215,229,.08)}
-    .visual{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#153a4e,#0a2433)}
-    .visual:after{content:"";position:absolute;inset:auto 0 0;height:55%;background:linear-gradient(180deg,transparent,rgba(6,20,31,.9))}
-    .icon-art{font-size:82px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.35));z-index:1}
+    .visual{height:210px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#153a4e,#0a2433)}
+    .visual:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 65% 25%,rgba(255,184,92,.24),transparent 32%),linear-gradient(135deg,rgba(83,215,229,.12),transparent 55%)}
+    .visual:after{content:"";position:absolute;inset:auto 0 0;height:60%;background:linear-gradient(180deg,transparent,rgba(6,20,31,.94))}
+    .scene{position:absolute;inset:0;display:grid;place-items:center;opacity:.95}
+    .scene svg{width:100%;height:100%;display:block}
+    .badge{position:absolute;left:22px;bottom:18px;width:72px;height:72px;border-radius:20px;display:grid;place-items:center;z-index:3;background:linear-gradient(145deg,rgba(10,48,67,.96),rgba(5,24,35,.98));border:1px solid rgba(83,215,229,.28);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+    .badge svg{width:40px;height:40px;stroke:#43d7ff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(67,215,255,.28))}
     .radar{
       width:116px;height:116px;border-radius:50%;border:2px solid var(--cyan);position:relative;z-index:1;
       box-shadow:0 0 0 18px rgba(83,215,229,.035),0 0 0 36px rgba(83,215,229,.02), inset 0 0 25px rgba(83,215,229,.09);
@@ -100,7 +104,8 @@
     <main class="grid">
       <a class="card" href="https://asyraf6857.github.io/weekly-report-dashboard/dashboard.html?utm_source=chatgpt.com" target="_blank" rel="noopener">
         <div class="visual">
-          <div class="radar"><div class="sweep"></div></div>
+          <div class="scene"><svg viewBox="0 0 400 210" aria-hidden="true"><defs><linearGradient id="sea1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#17445b"/><stop offset="1" stop-color="#071923"/></linearGradient></defs><rect width="400" height="210" fill="url(#sea1)"/><path d="M0 166 C70 153 125 174 190 160 S315 149 400 163 V210 H0Z" fill="#0a2b3a"/><rect x="45" y="25" width="310" height="150" rx="12" fill="#07131b" stroke="#28768d"/><circle cx="200" cy="100" r="62" fill="#071f2a" stroke="#43d7ff" stroke-width="2"/><circle cx="200" cy="100" r="43" fill="none" stroke="#1f6f82"/><circle cx="200" cy="100" r="23" fill="none" stroke="#1f6f82"/><path d="M138 100h124M200 38v124" stroke="#2c91a7"/><path d="M200 100 L246 58 A62 62 0 0 1 262 100Z" fill="#43d7ff" opacity=".22"/><circle cx="227" cy="83" r="3" fill="#67f0b4"/><circle cx="174" cy="126" r="2.5" fill="#67f0b4"/><path d="M62 48h52M62 58h34M287 48h48M300 58h35" stroke="#43d7ff" opacity=".6"/></svg></div>
+          <div class="badge"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="10"/><path d="M24 7v34M7 24h34M24 24l11-11"/></svg></div>
         </div>
         <div class="content">
           <div class="label">VESSEL TRAFFIC</div>
@@ -111,7 +116,7 @@
       </a>
 
       <a class="card" href="#" data-placeholder="Pilotage">
-        <div class="visual"><div class="icon-art">🧑‍✈️⚓</div></div>
+        <div class="visual"><div class="scene"><svg viewBox="0 0 400 210" aria-hidden="true"><rect width="400" height="210" fill="#12394b"/><circle cx="328" cy="48" r="35" fill="#ffb45d" opacity=".55"/><path d="M0 145 Q85 130 165 148 T400 143 V210H0Z" fill="#0a2634"/><path d="M250 30h150v105H250z" fill="#13232b"/><path d="M235 135h165" stroke="#f49b55" stroke-width="3"/><path d="M55 133h145l-20 37H75z" fill="#e7eef0"/><path d="M88 108h65l28 25H75z" fill="#cfdce0"/><rect x="103" y="115" width="19" height="12" fill="#12384a"/><rect x="128" y="115" width="19" height="12" fill="#12384a"/><path d="M154 75v33M154 80l25 18" stroke="#e8f7fa" stroke-width="3"/><circle cx="200" cy="105" r="9" fill="#f0b28c"/><path d="M185 116h30l8 42h-47z" fill="#ff5b38"/><path d="M182 125h35" stroke="#f5d85e" stroke-width="5"/></svg></div><div class="badge"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="M24 8v32M8 24h32M24 24l10-10M14 34l10-10"/></svg></div></div>
         <div class="content">
           <div class="label">HARBOUR PILOT</div>
           <h3>Pilotage</h3>
@@ -121,7 +126,7 @@
       </a>
 
       <a class="card" href="https://script.google.com/macros/s/AKfycbz5hETKzzKBKgcmN5sI9cW4EPDsMXps6wW3HcFWjYm6xObdG9SQ8XaARdXwuA7U8pLZ4Q/exec" target="_blank" rel="noopener">
-        <div class="visual"><div class="icon-art">🚢🛥️</div></div>
+        <div class="visual"><div class="scene"><svg viewBox="0 0 400 210" aria-hidden="true"><rect width="400" height="210" fill="#173c4d"/><circle cx="330" cy="48" r="36" fill="#ffb45d" opacity=".55"/><path d="M0 154 Q60 143 120 155 T240 153 T400 150V210H0Z" fill="#0a2938"/><path d="M64 125h215l-27 42H91z" fill="#111b20"/><path d="M112 88h94v37h-94z" fill="#e8eff1"/><path d="M136 63h42v25h-42z" fill="#d9e5e8"/><rect x="123" y="98" width="20" height="13" fill="#16475b"/><rect x="150" y="98" width="20" height="13" fill="#16475b"/><rect x="177" y="98" width="20" height="13" fill="#16475b"/><path d="M158 63V35M158 42l25 12" stroke="#dbecef" stroke-width="3"/><circle cx="158" cy="33" r="4" fill="#ff7a4f"/><path d="M283 137h73l-10 24h-53z" fill="#e8eff1"/><path d="M302 118h31l13 19h-52z" fill="#d8e5e8"/></svg></div><div class="badge"><svg viewBox="0 0 48 48"><path d="M8 30h32l-5 8H13zM15 30V18h18v12M20 18V10h8v8M7 41c4-3 7 3 11 0s7 3 11 0 7 3 11 0"/></svg></div></div>
         <div class="content">
           <div class="label">TUG & PILOT BOAT</div>
           <h3>Towage</h3>
@@ -131,7 +136,7 @@
       </a>
 
       <a class="card" href="#" data-placeholder="Administration">
-        <div class="visual"><div class="icon-art">📻🦺</div></div>
+        <div class="visual"><div class="scene"><svg viewBox="0 0 400 210" aria-hidden="true"><rect width="400" height="210" fill="#183b4c"/><circle cx="330" cy="48" r="36" fill="#ffb45d" opacity=".5"/><path d="M0 150h400v60H0z" fill="#0a2634"/><rect x="72" y="72" width="76" height="92" rx="9" fill="#111b23" stroke="#829aa5"/><path d="M125 72l16-42" stroke="#c7d6db" stroke-width="3"/><rect x="84" y="87" width="50" height="27" rx="3" fill="#153f52"/><circle cx="96" cy="129" r="7" fill="#4ed5ef"/><path d="M115 128h20M115 137h20" stroke="#a8bec7"/><path d="M220 66h78l27 98H193z" fill="#f36b3f"/><path d="M242 66v98M276 66v98" stroke="#ffd05a" stroke-width="8"/><path d="M193 164h132" stroke="#dce9ec" stroke-width="3"/><path d="M167 82c14-12 27-12 41 0M162 70c18-17 36-17 54 0" fill="none" stroke="#43d7ff" stroke-width="3"/></svg></div><div class="badge"><svg viewBox="0 0 48 48"><path d="M14 8h20v32H14zM18 13h12M18 19h12M18 25h8M18 34h12"/><path d="M34 15h5v25H19"/></svg></div></div>
         <div class="content">
           <div class="label">MARINE ASSETS</div>
           <h3>Administration</h3>
@@ -143,7 +148,7 @@
 
     <div class="foot">
       <span>MARINE DIGITAL DASHBOARD • PTP MARINE SERVICES</span>
-      <span class="note">Pilotage / Towage / Administration links pending</span>
+      <span class="note">Pilotage / Administration links pending</span>
     </div>
   </div>
   <script>
