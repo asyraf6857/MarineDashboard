@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marine Digital Dashboard</title>
+  <style>
+    :root{
+      --bg:#06141f; --panel:#0b2231cc; --panel2:#0f2f42cc; --line:#1e90a8;
+      --cyan:#53d7e5; --text:#eef8fb; --muted:#9eb7c2; --shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; font-family:Inter,Segoe UI,Arial,sans-serif; color:var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(34,140,165,.18), transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(44,107,135,.15), transparent 30%),
+        linear-gradient(180deg,#07151f 0%,#0a1d29 45%,#07141e 100%);
+      overflow-x:hidden;
+    }
+    body:before{
+      content:""; position:fixed; inset:0; pointer-events:none; opacity:.22;
+      background-image:
+        linear-gradient(rgba(83,215,229,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(83,215,229,.045) 1px,transparent 1px);
+      background-size:42px 42px;
+    }
+    .wrap{width:min(1480px,94vw); margin:0 auto; padding:20px 0 34px}
+    header{display:flex; justify-content:space-between; align-items:center; gap:20px; padding:10px 0 20px; border-bottom:1px solid rgba(83,215,229,.16)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .mark{
+      width:54px;height:54px;border:1px solid rgba(83,215,229,.45);border-radius:16px;
+      display:grid;place-items:center;background:linear-gradient(145deg,#12394b,#081923);
+      box-shadow:inset 0 0 25px rgba(83,215,229,.08), var(--shadow);
+      font-size:28px;
+    }
+    .brand h2{margin:0;font-size:17px;letter-spacing:.12em}
+    .brand p{margin:4px 0 0;color:var(--muted);font-size:12px;letter-spacing:.08em}
+    .status{display:flex;align-items:center;gap:18px;color:var(--muted);font-size:12px}
+    .online{display:flex;align-items:center;gap:8px;color:#8fe7b8}
+    .dot{width:9px;height:9px;border-radius:50%;background:#57d796;box-shadow:0 0 14px #57d796}
+    .hero{text-align:center;padding:54px 15px 34px}
+    .hero .eyebrow{font-size:12px;letter-spacing:.34em;color:var(--cyan);font-weight:700}
+    .hero h1{font-size:clamp(40px,6vw,82px);line-height:.95;margin:16px 0 18px;letter-spacing:-.035em}
+    .hero p{margin:0 auto;max-width:760px;color:var(--muted);font-size:15px}
+    .hero .tag{margin-top:16px;color:#c8eaf0;letter-spacing:.22em;font-size:11px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}
+    .card{
+      min-height:420px;position:relative;overflow:hidden;border-radius:26px;border:1px solid rgba(83,215,229,.18);
+      background:linear-gradient(180deg,rgba(15,47,66,.96),rgba(7,22,31,.98));
+      box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:.28s ease;
+    }
+    .card:hover{transform:translateY(-7px);border-color:rgba(83,215,229,.6);box-shadow:0 28px 70px rgba(0,0,0,.48),0 0 0 1px rgba(83,215,229,.08)}
+    .visual{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#153a4e,#0a2433)}
+    .visual:after{content:"";position:absolute;inset:auto 0 0;height:55%;background:linear-gradient(180deg,transparent,rgba(6,20,31,.9))}
+    .icon-art{font-size:82px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.35));z-index:1}
+    .radar{
+      width:116px;height:116px;border-radius:50%;border:2px solid var(--cyan);position:relative;z-index:1;
+      box-shadow:0 0 0 18px rgba(83,215,229,.035),0 0 0 36px rgba(83,215,229,.02), inset 0 0 25px rgba(83,215,229,.09);
+    }
+    .radar:before,.radar:after{content:"";position:absolute;background:rgba(83,215,229,.48)}
+    .radar:before{width:100%;height:1px;top:50%;left:0}.radar:after{height:100%;width:1px;left:50%;top:0}
+    .sweep{position:absolute;width:50%;height:50%;left:50%;top:0;background:linear-gradient(135deg,rgba(83,215,229,.45),transparent 70%);transform-origin:left bottom;animation:sweep 4s linear infinite}
+    @keyframes sweep{to{transform:rotate(360deg)}}
+    .content{padding:26px 26px 24px}
+    .label{font-size:11px;letter-spacing:.26em;color:var(--cyan);font-weight:700;margin-bottom:10px}
+    .content h3{margin:0;font-size:28px}
+    .content p{color:var(--muted);line-height:1.65;font-size:14px;min-height:70px}
+    .go{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);font-weight:700;font-size:13px}
+    .arrow{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(83,215,229,.11);border:1px solid rgba(83,215,229,.24);color:var(--cyan)}
+    .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:34px;padding-top:18px;border-top:1px solid rgba(83,215,229,.12);color:#7798a6;font-size:11px}
+    .note{padding:10px 14px;border:1px solid rgba(83,215,229,.12);border-radius:999px;background:rgba(255,255,255,.02)}
+    @media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:650px){header{align-items:flex-start;flex-direction:column}.status{width:100%;justify-content:space-between}.grid{grid-template-columns:1fr}.hero{padding-top:36px}.card{min-height:auto}.foot{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="mark">⚓</div>
+        <div>
+          <h2>MARINE SERVICES</h2>
+          <p>PORT OF TANJUNG PELEPAS</p>
+        </div>
+      </div>
+      <div class="status">
+        <div class="online"><span class="dot"></span> SYSTEM ONLINE</div>
+        <div id="datetime"></div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">MARINE OPERATIONS PORTAL</div>
+      <h1>Marine Digital Dashboard</h1>
+      <p>One central gateway to VTMS, Pilotage, Towage and Marine Administration resources.</p>
+      <div class="tag">SAFER WATERS • SMARTER OPERATIONS • STRONGER CONNECTIVITY</div>
+    </section>
+
+    <main class="grid">
+      <a class="card" href="https://asyraf6857.github.io/vtms/" target="_blank" rel="noopener">
+        <div class="visual">
+          <div class="radar"><div class="sweep"></div></div>
+        </div>
+        <div class="content">
+          <div class="label">VESSEL TRAFFIC</div>
+          <h3>VTMS</h3>
+          <p>Access the VTMS Digital Dashboard for vessel movement and operational monitoring.</p>
+          <div class="go"><span>Open Dashboard</span><span class="arrow">↗</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="#" data-placeholder="Pilotage">
+        <div class="visual"><div class="icon-art">🧑‍✈️⚓</div></div>
+        <div class="content">
+          <div class="label">HARBOUR PILOT</div>
+          <h3>Pilotage</h3>
+          <p>Quick access to the Marine Pilotage section. Link will be connected when provided.</p>
+          <div class="go"><span>Open Pilotage</span><span class="arrow">↗</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="#" data-placeholder="Towage">
+        <div class="visual"><div class="icon-art">🚢🛥️</div></div>
+        <div class="content">
+          <div class="label">TUG & PILOT BOAT</div>
+          <h3>Towage</h3>
+          <p>Gateway to tugboat and pilot boat operational resources for Towage.</p>
+          <div class="go"><span>Open Towage</span><span class="arrow">↗</span></div>
+        </div>
+      </a>
+
+      <a class="card" href="#" data-placeholder="Administration">
+        <div class="visual"><div class="icon-art">📻🦺</div></div>
+        <div class="content">
+          <div class="label">MARINE ASSETS</div>
+          <h3>Administration</h3>
+          <p>Marine Administration section for operational assets such as VHF radio, life jacket and related resources.</p>
+          <div class="go"><span>Open Administration</span><span class="arrow">↗</span></div>
+        </div>
+      </a>
+    </main>
+
+    <div class="foot">
+      <span>MARINE DIGITAL DASHBOARD • PTP MARINE SERVICES</span>
+      <span class="note">Pilotage / Towage / Administration links pending</span>
+    </div>
+  </div>
+  <script>
+    function tick(){
+      const now = new Date();
+      document.getElementById('datetime').textContent = now.toLocaleString('en-MY',{
+        day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+      });
+    }
+    tick(); setInterval(tick,1000);
+    document.querySelectorAll('[data-placeholder]').forEach(el=>{
+      el.addEventListener('click',e=>{
+        e.preventDefault();
+        alert(el.dataset.placeholder + ' link belum dimasukkan.');
+      });
+    });
+  </script>
+</body>
+</html>
